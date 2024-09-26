@@ -8,3 +8,17 @@ Running python `3.9.13` as a `pyenv virtualenv` named `professorai`
 
 Activate local environment with `pyenv local professorai`
 Deactivate with `pyenv deactivate`
+
+## Running
+
+```
+python src/gradio_interface.py
+```
+
+## Other
+
+Remove pycache with
+
+```
+find . | grep -E "(/__pycache__$|\.pyc$|\.pyo$)" | xargs rm -rf
+```
