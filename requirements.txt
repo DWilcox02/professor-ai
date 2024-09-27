@@ -1,0 +1,3 @@
+django_haystack==3.3.0
+gradio==4.44.0
+torch==2.4.1
