@@ -8,8 +8,35 @@ Running python `3.9.13` as a `pyenv virtualenv` named `professorai`
 
 Activate local environment with `pyenv local professorai`
 Deactivate with `pyenv deactivate`
+(Note: vscode will do this automatically if interpreter correctly set)
+
+### Dependencies
+
+Install dependencies with
+
+```
+pip install -r requirements.txt
+```
+
+And update them (if installing any new libraries) with
+
+```
+pipreqs .
+```
+
+## System configuration
+
+My `.env` file contains
+
+```
+export PYTORCH_ENABLE_MPS_FALLBACK=1
+```
+
+which I recommend adding. Don't forget to `source .env` to ensure it's saved
 
 ## Running
+
+Add all relevant documents to `data/knowledge-docs/`, then run:
 
 ```
 python src/gradio_interface.py
