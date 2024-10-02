@@ -1,5 +1,5 @@
 import gradio as gr
-from query import ask_professor
+from processor.query import ask_professor
 
 
 # Define the Gradio function to ask questions

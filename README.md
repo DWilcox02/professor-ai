@@ -32,7 +32,7 @@ My `.env` file contains
 export PYTORCH_ENABLE_MPS_FALLBACK=1
 ```
 
-which I recommend adding. Don't forget to `source .env` to ensure it's saved
+which I recommend adding. Don't forget to `source .env` before running the program.
 
 ## Running
 
@@ -48,4 +48,5 @@ Remove pycache with
 
 ```
 find . | grep -E "(/__pycache__$|\.pyc$|\.pyo$)" | xargs rm -rf
+rm -rf .pytest_cache
 ```
