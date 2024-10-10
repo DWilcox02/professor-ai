@@ -42,6 +42,18 @@ Add all relevant documents to `data/knowledge-docs/`, then run:
 python src/gradio_interface.py
 ```
 
+## Changin Response
+
+The best way to change the response is in `data_reader.py` by modifying the Haystack pipeline:
+https://haystack.deepset.ai/tutorials
+
+Potential improvements include:
+
+- Replacing InMemoryReader with its own pre-processed server that can be accessed by this application
+- Changing the model
+- Changing the prompt template
+- etc....
+
 ## Other
 
 Remove pycache with
