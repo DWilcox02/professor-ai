@@ -26,6 +26,8 @@ Deactivate with `pyenv deactivate`
    ```
    python src/gradio_interface.py
    ```
+5. Access the chat at `http://127.0.0.1:7860` (or whatever port it says to access)
+6. `Ctrl`+`C` to stop the program
 
 ### Dependencies
 
