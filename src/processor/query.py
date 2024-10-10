@@ -1,8 +1,15 @@
+import os
+from getpass import getpass
 from transformers import AutoModelForCausalLM, AutoTokenizer
 from processor.data_reader import query_pipeline
 from huggingface_hub import login
 
-login(token="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")
+if "HF_API_TOKEN" not in os.environ:
+    os.environ["HF_API_TOKEN"] = getpass("Enter Hugging Face token:")
+
+token = os.environ["HF_API_TOKEN"]
+
+login(token=token)
 # Load a pre-trained conversational model
 model_name = "meta-llama/Meta-Llama-3-8B"  # Lighter version of GPT-2
 tokenizer = AutoTokenizer.from_pretrained(model_name)
