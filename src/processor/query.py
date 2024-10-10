@@ -1,52 +1,45 @@
-import os
-from getpass import getpass
-from transformers import AutoModelForCausalLM, AutoTokenizer
-from processor.data_reader import query_pipeline
-from huggingface_hub import login
+# import os
+# from getpass import getpass
+# from transformers import AutoModelForCausalLM, AutoTokenizer
+# from processor.data_reader import query_pipeline
+# from huggingface_hub import login
+from processor.data_reader import query_knowledge
 
-if "HF_API_TOKEN" not in os.environ:
-    os.environ["HF_API_TOKEN"] = getpass("Enter Hugging Face token:")
+# if "HF_API_TOKEN" not in os.environ:
+#     os.environ["HF_API_TOKEN"] = getpass("Enter Hugging Face token:")
 
-token = os.environ["HF_API_TOKEN"]
+# token = os.environ["HF_API_TOKEN"]
 
-login(token=token)
-# Load a pre-trained conversational model
-model_name = "meta-llama/Meta-Llama-3-8B"  # Lighter version of GPT-2
-tokenizer = AutoTokenizer.from_pretrained(model_name)
-model = AutoModelForCausalLM.from_pretrained(model_name)
-
-
-# Maintain conversation history as a string
-conversation_history = ""
+# login(token=token)
+# # Load a pre-trained conversational model
+# model_name = "meta-llama/Meta-Llama-3-8B"  # Lighter version of GPT-2
+# tokenizer = AutoTokenizer.from_pretrained(model_name)
+# model = AutoModelForCausalLM.from_pretrained(model_name)
 
 
-def truncate_history(conversation_history, max_tokens=1024):
-    # Tokenize history
-    tokens = tokenizer(conversation_history, return_tensors="pt")["input_ids"]
-    # If the token count exceeds the max, truncate it
-    if tokens.shape[1] > max_tokens:
-        conversation_history = tokenizer.decode(tokens[0, -max_tokens:], skip_special_tokens=True)
-    return conversation_history
+# # Maintain conversation history as a string
+# conversation_history = ""
 
 
-def query_knowledge(question):
-    result = query_pipeline.run(
-        {
-            "embedder": {"text": question},
-            "prompt_builder": {"question": question},
-            "llm": {"generation_kwargs": {"max_new_tokens": 350}},
-        }
-    )
+# def truncate_history(conversation_history, max_tokens=1024):
+#     # Tokenize history
+#     tokens = tokenizer(conversation_history, return_tensors="pt")["input_ids"]
+#     # If the token count exceeds the max, truncate it
+#     if tokens.shape[1] > max_tokens:
+#         conversation_history = tokenizer.decode(tokens[0, -max_tokens:], skip_special_tokens=True)
+#     return conversation_history
 
-    return result["llm"]["replies"][0]
+
+def concatenate_answers(answers):
+    return "\n\n".join(answers)
 
 
 def ask_professor(question):
     # global conversation_history
 
     # Query the knowledge base
-    knowledge = query_knowledge(question)
-    return knowledge
+    top_3_answers = query_knowledge(question)
+    return concatenate_answers(top_3_answers)
     # print(f"Knowledge of subject: {knowledge}")
 
     # # Append the question and knowledge to the conversation history

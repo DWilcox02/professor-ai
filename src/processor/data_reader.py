@@ -37,3 +37,16 @@ query_pipeline.add_component(
 query_pipeline.connect("embedder.embedding", "retriever.query_embedding")
 query_pipeline.connect("retriever", "prompt_builder.documents")
 query_pipeline.connect("prompt_builder", "llm")
+
+
+def query_knowledge(question):
+    result = query_pipeline.run(
+        {
+            "embedder": {"text": question},
+            "prompt_builder": {"question": question},
+            "llm": {"generation_kwargs": {"max_new_tokens": 350}},
+        }
+    )
+    print(query_pipeline)
+    print(result["llm"])
+    return result["llm"]["replies"]
