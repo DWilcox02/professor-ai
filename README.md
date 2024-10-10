@@ -1,6 +1,9 @@
 # Professor AI
 
 AI assistant that can answer questions based on a specific knowledge base as if they were a university professor.
+Details below explain what to be modified to change the response.
+
+Uses Haystack (https://haystack.deepset.ai/), and is designed to be easily modified by non-programmers by simply changing the models used.
 
 ## Python Environment
 
@@ -12,13 +15,14 @@ Deactivate with `pyenv deactivate`
 
 ## Running
 
-1. Add all relevant documents to `data/knowledge-docs/`
-2. Run
+1. Install all dependencies (see below)
+2. Add all relevant documents to `data/knowledge-docs/`
+3. Run
    ```
    source .env
    ```
    (only need to do this once at the beginning).
-3. To run the Gradio interface (simple interface to talk to the model)
+4. To run the Gradio interface (simple interface to talk to the model)
    ```
    python src/gradio_interface.py
    ```
@@ -47,11 +51,13 @@ export PYTORCH_ENABLE_MPS_FALLBACK=1
 
 which I recommend adding. It also contains
 
-`export HF_API_TOKEN=<my token>`
+```
+export HF_API_TOKEN=<my token>
+```
 
 Don't forget to `source .env` before running the program.
 
-## Changing Response
+## Changing the Response
 
 The best way to change the response is in `data_reader.py` by modifying the Haystack pipeline:
 https://haystack.deepset.ai/tutorials
