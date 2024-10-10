@@ -1,5 +1,5 @@
-from ..src.processor.query import query_knowledge
+from ..src.processor.query import query_pipeline
 
 question = "How can I use graphs to optimise the trajectory of a UAV?"
 
-query_knowledge(question)
+query_pipeline(question)

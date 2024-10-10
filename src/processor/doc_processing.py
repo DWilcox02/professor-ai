@@ -10,22 +10,28 @@ from haystack.document_stores.in_memory import InMemoryDocumentStore
 
 INPUT_PATH = "./data/unprocessed_docs/"
 
-# Initialize the document store
+# Document storage method. Currently in memory.
+# For larger collections of documents, change this to a SQL or Elasticsearch document store
+# or else they'll all be stored in memory (which could add up real fast)
 document_store = InMemoryDocumentStore()
 
-# File routing
+# File routing. Don't need to change this.
 file_type_router = FileTypeRouter(mime_types=["text/plain", "application/pdf", "text/markdown"])
 text_file_converter = TextFileToDocument()
 markdown_converter = MarkdownToDocument()
 pdf_converter = PyPDFToDocument()
 document_joiner = DocumentJoiner()
 
-# Preprocessing pipeline
+# Preprocessing pipeline. Can modify this to add more components or change the order of components.
 document_cleaner = DocumentCleaner()
 document_splitter = DocumentSplitter(split_by="word", split_length=150, split_overlap=50)
+
+# Document embedding. Change the model to use a different sentence transformer model.
+# See more at: https://docs.haystack.deepset.ai/docs/embedders
 document_embedder = SentenceTransformersDocumentEmbedder(model="sentence-transformers/all-MiniLM-L6-v2")
 document_writer = DocumentWriter(document_store)
 
+# Add components to the pipeline. Don't need to change this.
 preprocessing_pipeline = Pipeline()
 preprocessing_pipeline.add_component(instance=file_type_router, name="file_type_router")
 preprocessing_pipeline.add_component(instance=text_file_converter, name="text_file_converter")
